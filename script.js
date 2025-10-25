@@ -1,12 +1,12 @@
 // script.js — DREWN Romantic Gallery 💞
 
-// ambil elemen sesuai ID di HTML
+// Get DOM elements
 const masonry = document.querySelector('.masonry');
 const audio = document.getElementById('bgAudio');
 const toggleBtn = document.getElementById('toggleMusic');
 const musicFile = document.getElementById('musicFile');
 
-// fungsi utama: memuat foto dari photos.json
+// Load photos from photos.json
 async function loadPhotos() {
   masonry.innerHTML = '<p style="padding:20px;color:#7a6b78">Memuat foto...</p>';
 
@@ -15,13 +15,13 @@ async function loadPhotos() {
     if (!res.ok) throw new Error(res.statusText);
     const photos = await res.json();
 
-    masonry.innerHTML = ''; // kosongkan kontainer
+    masonry.innerHTML = ''; // Clear container
 
     photos.forEach(photo => {
       const article = document.createElement('article');
       article.className = 'photo-card';
       article.innerHTML = `
-        <img class="photo-img" src="${photo.src}" alt="${photo.caption || ''}">
+        <img class="photo-img" src="${photo.src}" alt="${photo.caption || ''}" onerror="this.style.display='none'; this.nextElementSibling.innerHTML='<p style=\\'color:#7a6b78\\'>Gambar tidak ditemukan</p>'">
         <div class="meta">
           <p class="caption">${photo.caption || ''}</p>
           <time class="date">${photo.date || ''}</time>
@@ -37,7 +37,7 @@ async function loadPhotos() {
   }
 }
 
-// autoplay: coba mainkan musik, kalau diblok browser biarkan mute
+// Handle music autoplay
 async function tryPlayAudio() {
   try {
     await audio.play();
@@ -47,7 +47,7 @@ async function tryPlayAudio() {
   }
 }
 
-// toggle play/pause
+// Toggle play/pause music
 toggleBtn.addEventListener('click', async () => {
   if (audio.paused) {
     try {
@@ -62,7 +62,7 @@ toggleBtn.addEventListener('click', async () => {
   }
 });
 
-// ganti musik manual (upload file lokal)
+// Change music file manually
 musicFile.addEventListener('change', (e) => {
   const f = e.target.files && e.target.files[0];
   if (!f) return;
@@ -73,7 +73,7 @@ musicFile.addEventListener('change', (e) => {
     .catch(() => toggleBtn.setAttribute('aria-pressed', 'false'));
 });
 
-// mulai semua saat halaman load
+// Initialize on page load
 window.addEventListener('load', () => {
   loadPhotos();
   setTimeout(() => tryPlayAudio(), 200);

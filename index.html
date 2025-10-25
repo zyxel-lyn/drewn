@@ -1,80 +1,42 @@
-// script.js — DREWN Romantic Gallery 💞
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DREWN — Romantic Gallery</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+<h1>DREWN</h1>
+<div class="music-controls">
+<label class="file-btn">Change music
+<input id="musicFile" type="file" accept="audio/*" />
+</label>
+<button id="toggleMusic" aria-pressed="true" title="Toggle music">⏯</button>
+</div>
+</header>
 
-// ambil elemen sesuai ID di HTML
-const masonry = document.querySelector('.masonry');
-const audio = document.getElementById('bgAudio');
-const toggleBtn = document.getElementById('toggleMusic');
-const musicFile = document.getElementById('musicFile');
 
-// fungsi utama: memuat foto dari photos.json
-async function loadPhotos() {
-  masonry.innerHTML = '<p style="padding:20px;color:#7a6b78">Memuat foto...</p>';
+<main class="gallery-wrap">
+<section id="masonry" class="masonry"></section>
+</main>
 
-  try {
-    const res = await fetch('photos.json');
-    if (!res.ok) throw new Error(res.statusText);
-    const photos = await res.json();
 
-    masonry.innerHTML = ''; // kosongkan kontainer
+<template id="photoTpl">
+<article class="photo-card">
+<img class="photo-img" alt="" />
+<div class="meta">
+<p class="caption"></p>
+<time class="date"></time>
+</div>
+</article>
+</template>
 
-    photos.forEach(photo => {
-      const article = document.createElement('article');
-      article.className = 'photo-card';
-      article.innerHTML = `
-        <img class="photo-img" src="${photo.src}" alt="${photo.caption || ''}">
-        <div class="meta">
-          <p class="caption">${photo.caption || ''}</p>
-          <time class="date">${photo.date || ''}</time>
-        </div>
-      `;
-      masonry.appendChild(article);
-    });
 
-  } catch (err) {
-    console.error('Failed to load photos.json', err);
-    masonry.innerHTML =
-      '<p style="padding:20px;color:#7a6b78">Gagal memuat galeri. Pastikan file <code>photos.json</code> ada dan formatnya benar.</p>';
-  }
-}
+<audio id="bgAudio" src="assets/music/song.mp3" loop></audio>
 
-// autoplay: coba mainkan musik, kalau diblok browser biarkan mute
-async function tryPlayAudio() {
-  try {
-    await audio.play();
-    toggleBtn.setAttribute('aria-pressed', 'true');
-  } catch (e) {
-    toggleBtn.setAttribute('aria-pressed', 'false');
-  }
-}
 
-// toggle play/pause
-toggleBtn.addEventListener('click', async () => {
-  if (audio.paused) {
-    try {
-      await audio.play();
-      toggleBtn.setAttribute('aria-pressed', 'true');
-    } catch (e) {
-      console.warn('play failed', e);
-    }
-  } else {
-    audio.pause();
-    toggleBtn.setAttribute('aria-pressed', 'false');
-  }
-});
-
-// ganti musik manual (upload file lokal)
-musicFile.addEventListener('change', (e) => {
-  const f = e.target.files && e.target.files[0];
-  if (!f) return;
-  const url = URL.createObjectURL(f);
-  audio.src = url;
-  audio.play()
-    .then(() => toggleBtn.setAttribute('aria-pressed', 'true'))
-    .catch(() => toggleBtn.setAttribute('aria-pressed', 'false'));
-});
-
-// mulai semua saat halaman load
-window.addEventListener('load', () => {
-  loadPhotos();
-  setTimeout(() => tryPlayAudio(), 200);
-});
+<script src="script.js"></script>
+</body>
+</html>
