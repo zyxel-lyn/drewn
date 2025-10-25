@@ -1,6 +1,11 @@
 [
   {
     "src": "assets/music/song.mp3",
-    "title": "Lagu Romantis"
+    "title": "Lucky feat Colbie Caillat - Jason Mraz Colbie Caillat"
+  },
+
+  {
+    "src": "assets/music/song2.mp3",
+    "title": "One Only - Pamungkas"
   }
 ]
