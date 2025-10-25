@@ -1,10 +1,10 @@
-// script.js — Romantic Masonry Gallery with Music 🎶
+// script.js — DREWN Romantic Gallery 💞
 
-// ambil elemen penting
+// ambil elemen sesuai ID di HTML
 const masonry = document.querySelector('.masonry');
-const audio = document.getElementById('bg-music');
-const toggleBtn = document.getElementById('music-toggle');
-const musicFile = document.getElementById('music-file');
+const audio = document.getElementById('bgAudio');
+const toggleBtn = document.getElementById('toggleMusic');
+const musicFile = document.getElementById('musicFile');
 
 // fungsi utama: memuat foto dari photos.json
 async function loadPhotos() {
@@ -19,12 +19,12 @@ async function loadPhotos() {
 
     photos.forEach(photo => {
       const article = document.createElement('article');
-      article.className = 'masonry-item';
+      article.className = 'photo-card';
       article.innerHTML = `
-        <img src="${photo.src}" alt="${photo.caption || ''}">
-        <div class="caption">
-          <p>${photo.caption || ''}</p>
-          <span>${photo.date || ''}</span>
+        <img class="photo-img" src="${photo.src}" alt="${photo.caption || ''}">
+        <div class="meta">
+          <p class="caption">${photo.caption || ''}</p>
+          <time class="date">${photo.date || ''}</time>
         </div>
       `;
       masonry.appendChild(article);
@@ -43,12 +43,11 @@ async function tryPlayAudio() {
     await audio.play();
     toggleBtn.setAttribute('aria-pressed', 'true');
   } catch (e) {
-    // autoplay diblok, nanti bisa dimainkan manual
     toggleBtn.setAttribute('aria-pressed', 'false');
   }
 }
 
-// tombol toggle musik play/pause
+// toggle play/pause
 toggleBtn.addEventListener('click', async () => {
   if (audio.paused) {
     try {
@@ -76,6 +75,6 @@ musicFile.addEventListener('change', (e) => {
 
 // mulai semua saat halaman load
 window.addEventListener('load', () => {
-  loadPhotos(); // load galeri
-  setTimeout(() => tryPlayAudio(), 200); // coba autoplay musik
+  loadPhotos();
+  setTimeout(() => tryPlayAudio(), 200);
 });
