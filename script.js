@@ -16,7 +16,8 @@ async function loadPhotos() {
     if (!res.ok) throw new Error(res.statusText);
     const photos = await res.json();
 
-
+    // Sort photos by date descending (newest first)
+    photos.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     masonry.innerHTML = ''; // Clear container
 
