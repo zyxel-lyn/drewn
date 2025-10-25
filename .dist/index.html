@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>DREWN — Romantic Gallery</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header class="site-header">
+<h1>DREWN</h1>
+<div class="music-controls">
+<label class="file-btn">Change music
+<input id="musicFile" type="file" accept="audio/*" />
+</label>
+<button id="toggleMusic" aria-pressed="true" title="Toggle music">⏯</button>
+</div>
+</header>
+
+
+<main class="gallery-wrap">
+<section id="masonry" class="masonry"></section>
+</main>
+
+
+<template id="photoTpl">
+<article class="photo-card">
+<img class="photo-img" alt="" />
+<div class="meta">
+<p class="caption"></p>
+<time class="date"></time>
+</div>
+</article>
+</template>
+
+
+<audio id="bgAudio" src="assets/music/song.mp3" loop></audio>
+
+
+<script src="script.js"></script>
+</body>
+</html>
