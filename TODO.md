@@ -1,9 +1,8 @@
-# TODO: Clean up script.js for DREWN Romantic Gallery
+# TODO: Implement Music Playlist for DREWN Romantic Gallery
 
-- [x] Read current script.js to confirm content
-- [x] Add short comments per function/section (e.g., // load photos, // handle music)
-- [x] Clean up code for readability (improve formatting, remove redundancies)
-- [x] Add error handling for images: on img load error, display fallback message in photo card
-- [x] Ensure template literals render correctly (verify syntax)
-- [x] Keep music functionality unchanged
-- [x] Test by opening index.html in browser to verify gallery loads, images display or fallback, music works
+- [x] Create music.json with playlist data (array of songs with src and title)
+- [x] Update script.js: Load playlist, track current index, add auto-play next on ended, add skip functions
+- [x] Update index.html: Add skip forward/back buttons
+- [x] Update style.css: Style new skip buttons
+- [ ] Test playlist functionality: auto-next, skips, no errors
+- [ ] Commit and push changes to GitHub

@@ -10,10 +10,12 @@
 <header class="site-header">
 <h1>DREWN</h1>
 <div class="music-controls">
+<button id="skipPrev" title="Previous song">⏮</button>
+<button id="toggleMusic" aria-pressed="true" title="Toggle music">⏯</button>
+<button id="skipNext" title="Next song">⏭</button>
 <label class="file-btn">Change music
 <input id="musicFile" type="file" accept="audio/*" />
 </label>
-<button id="toggleMusic" aria-pressed="true" title="Toggle music">⏯</button>
 </div>
 </header>
 
@@ -34,7 +36,7 @@
 </template>
 
 
-<audio id="bgAudio" src="assets/music/song.mp3" loop></audio>
+<audio id="bgAudio"></audio>
 
 
 <script src="script.js"></script>

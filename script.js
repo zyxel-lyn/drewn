@@ -5,6 +5,12 @@ const masonry = document.querySelector('.masonry');
 const audio = document.getElementById('bgAudio');
 const toggleBtn = document.getElementById('toggleMusic');
 const musicFile = document.getElementById('musicFile');
+const skipPrevBtn = document.getElementById('skipPrev');
+const skipNextBtn = document.getElementById('skipNext');
+
+// Music playlist variables
+let playlist = [];
+let currentSongIndex = 0;
 
 
 // Load photos from photos.json and sort by date descending
@@ -39,6 +45,38 @@ async function loadPhotos() {
     masonry.innerHTML =
       '<p style="padding:20px;color:#7a6b78">Gagal memuat galeri. Pastikan file <code>photos.json</code> ada dan formatnya benar.</p>';
   }
+}
+
+// Load music playlist from music.json
+async function loadPlaylist() {
+  try {
+    const res = await fetch('music.json');
+    if (!res.ok) throw new Error(res.statusText);
+    playlist = await res.json();
+    if (playlist.length > 0) {
+      audio.src = playlist[currentSongIndex].src;
+    }
+  } catch (err) {
+    console.error('Failed to load music.json', err);
+  }
+}
+
+// Play next song
+function playNext() {
+  currentSongIndex = (currentSongIndex + 1) % playlist.length;
+  audio.src = playlist[currentSongIndex].src;
+  audio.play()
+    .then(() => toggleBtn.setAttribute('aria-pressed', 'true'))
+    .catch(() => toggleBtn.setAttribute('aria-pressed', 'false'));
+}
+
+// Play previous song
+function playPrev() {
+  currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+  audio.src = playlist[currentSongIndex].src;
+  audio.play()
+    .then(() => toggleBtn.setAttribute('aria-pressed', 'true'))
+    .catch(() => toggleBtn.setAttribute('aria-pressed', 'false'));
 }
 
 // Handle music autoplay
@@ -78,7 +116,17 @@ musicFile.addEventListener('change', (e) => {
 });
 
 // Initialize on page load
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
+  await loadPlaylist();
   loadPhotos();
   setTimeout(() => tryPlayAudio(), 200);
 });
+
+// Auto-play next song when current ends
+audio.addEventListener('ended', () => {
+  playNext();
+});
+
+// Skip buttons event listeners
+skipPrevBtn.addEventListener('click', playPrev);
+skipNextBtn.addEventListener('click', playNext);
