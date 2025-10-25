@@ -8,6 +8,18 @@
   {
     "src": "assets/images/photos2.jpg",
     "caption": "Yareu Montain",
-    "date": "2022-10-14"
+    "date": "2025-10-14"
+  },
+
+  {
+    "src": "assets/images/photos3.jpg",
+    "caption": "Mount Solara",
+    "date": "2025-09-26"
+  },
+
+  {
+    "src": "assets/images/photos4.jpg",
+    "caption": "Mount Nikah",
+    "date": "2025-10-02"
   }
 ]
