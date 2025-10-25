@@ -6,7 +6,8 @@ const audio = document.getElementById('bgAudio');
 const toggleBtn = document.getElementById('toggleMusic');
 const musicFile = document.getElementById('musicFile');
 
-// Load photos from photos.json
+
+// Load photos from photos.json and sort by date descending
 async function loadPhotos() {
   masonry.innerHTML = '<p style="padding:20px;color:#7a6b78">Memuat foto...</p>';
 
@@ -15,7 +16,8 @@ async function loadPhotos() {
     if (!res.ok) throw new Error(res.statusText);
     const photos = await res.json();
 
-    photos.sort((a, b) => new Date(a.date) - new Date(b.date));
+    // Sort photos by date descending (newest first)
+    photos.sort((a, b) => new Date(b.date) - new Date(a.date));
 
     masonry.innerHTML = ''; // Clear container
 
