@@ -63,20 +63,42 @@ async function loadPlaylist() {
 
 // Play next song
 function playNext() {
-  currentSongIndex = (currentSongIndex + 1) % playlist.length;
-  audio.src = playlist[currentSongIndex].src;
-  audio.play()
-    .then(() => toggleBtn.setAttribute('aria-pressed', 'true'))
-    .catch(() => toggleBtn.setAttribute('aria-pressed', 'false'));
+  currentSongIndex = (currentSongIndex + 1) % playlist.length;
+  audio.src = playlist[currentSongIndex].src;
+  
+  audio.play()
+    .then(() => {
+      toggleBtn.setAttribute('aria-pressed', 'true');
+      console.log(`Memutar lagu berikutnya: ${playlist[currentSongIndex].title}`); // Tambahkan log sukses
+    })
+    .catch((error) => {
+      toggleBtn.setAttribute('aria-pressed', 'false');
+      console.error(`Gagal memutar lagu ${playlist[currentSongIndex].title}:`, error); // Tambahkan log error rinci
+      
+      // Coba lompat ke lagu berikutnya (jika playlist lebih dari 1 lagu)
+      if (playlist.length > 1) {
+        console.warn("Mencoba melompati lagu yang gagal...");
+        // Mencegah loop tak terbatas jika semua lagu gagal, tapi coba lompat sekali
+        if (currentSongIndex === 0 && error.name === 'NotSupportedError') return;
+        playNext(); 
+      }
+    });
 }
 
 // Play previous song
 function playPrev() {
-  currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
-  audio.src = playlist[currentSongIndex].src;
-  audio.play()
-    .then(() => toggleBtn.setAttribute('aria-pressed', 'true'))
-    .catch(() => toggleBtn.setAttribute('aria-pressed', 'false'));
+  currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+  audio.src = playlist[currentSongIndex].src;
+  
+  audio.play()
+    .then(() => {
+      toggleBtn.setAttribute('aria-pressed', 'true');
+      console.log(`Memutar lagu sebelumnya: ${playlist[currentSongIndex].title}`);
+    })
+    .catch((error) => {
+      toggleBtn.setAttribute('aria-pressed', 'false');
+      console.error(`Gagal memutar lagu ${playlist[currentSongIndex].title}:`, error);
+    });
 }
 
 // Handle music autoplay
