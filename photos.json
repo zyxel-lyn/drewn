@@ -3,5 +3,11 @@
     "src": "assets/images/photos1.jpg",
     "caption": "String of Fate Expedition",
     "date": "2025-10-21"
+  },
+
+  {
+    "src": "assets/images/photos2.jpg",
+    "caption": "Yareu Montain",
+    "date": "2022-10-14"
   }
 ]
