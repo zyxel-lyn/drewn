@@ -44,12 +44,9 @@ body {
 */
 .music-controls {
   display: flex;
-  gap: 10px;
-  align-items: center;
-  flex-wrap: wrap; /* BARU: Izinkan item turun ke baris baru */
-  justify-content: center; /* BARU */
-  flex-grow: 1; /* BARU: Biarkan controls mengambil sisa ruang */
-  margin-left: 20px; /* BARU: Beri jarak dari judul 'DREWN' */
+  gap: 8px; /* Jarak vertikal antar tombol & slider */
+  flex-direction: column; /* Susun tombol & slider secara vertikal */
+  min-width: 350px; /* Beri lebar minimum agar tidak aneh */
 }
 
 /* Ini kode lama Anda, masih dipakai */
@@ -192,11 +189,10 @@ body {
 */
 
 .music-buttons {
-  display: flex; /* Jaga agar tombol tetap sebaris */
+  display: flex; 
   gap: 10px;
   align-items: center;
-  width: 100%; /* Ambil lebar penuh di baris pertama */
-  justify-content: center; /* Posisikan di tengah (opsional) */
+  justify-content: flex-end;
 }
 
 .progress-container {
@@ -270,9 +266,10 @@ body {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: clip;
-  animation: marquee 15s linear infinite alternate;
+  animation: marquee 15s linear infinite;
 
 }
+
 @keyframes marquee {
   0% {transform : translateX(0%);}
   100% {transform : translateX(-50%);}
