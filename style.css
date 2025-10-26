@@ -20,13 +20,15 @@ body {
   background: var(--bg);
   color: #4a3a46;
 }
+
+/* === HEADER & NAVIGATION === */
 .site-header {
   position: sticky;
   top: 0;
   z-index: 30;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-between; 
   padding: 18px 28px;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(6px);
@@ -39,34 +41,46 @@ body {
   color: #6f2e52;
 }
 
-/* DI BAWAH INI ADALAH KODE .music-controls YANG SUDAH DIUBAH 
-  untuk mengakomodasi progress bar 
-*/
+/* === MUSIC PLAYER CONTROLS (TATA LETAK BARU) === */
 .music-controls {
   display: flex;
-  gap: 8px; /* Jarak vertikal antar tombol & slider */
-  flex-direction: column; /* Susun tombol & slider secara vertikal */
-  min-width: 350px; /* Beri lebar minimum agar tidak aneh */
+  flex-direction: column; /* Baris 1: Judul, Baris 2: Kontrol */
+  gap: 4px; /* Jarak antar 2 baris */
+  min-width: 300px;
+  max-width: 450px; 
+  width: 100%;
 }
 
-/* Ini kode lama Anda, masih dipakai */
-.file-btn {
-  background: linear-gradient(90deg, #ffd6e6, #ffdbe9);
-  padding: 8px 12px;
-  border-radius: 999px;
-  cursor: pointer;
+/* BARIS 1: Judul Lagu */
+#currentSongTitle {
   font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  white-space: nowrap; 
+  overflow: hidden;
+  text-overflow: ellipsis; /* Judul terpotong '...' jika panjang */
+  width: 100%;
+  text-align: center; /* Judul di tengah */
+  animation: none; /* Matikan marquee */
 }
-.file-btn input {
-  display: none;
+
+/* BARIS 2: Kontrol + Slider + Change */
+.player-row-bottom {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Jarak antar grup tombol, slider, dan tombol change */
+  width: 100%;
 }
-#toggleMusic {
-  background: transparent;
-  border: 1px solid rgba(111, 46, 82, 0.08);
-  padding: 8px 12px;
-  border-radius: 10px;
-  cursor: pointer;
+
+/* Grup Tombol (Kiri) */
+.button-group {
+  display: flex; 
+  align-items: center;
+  flex-shrink: 0; /* Jangan biarkan grup tombol ini mengecil */
 }
+
+/* Tombol Kontrol (Prev, Play, Next) */
+#toggleMusic,
 #skipPrev,
 #skipNext {
   background: transparent;
@@ -74,12 +88,65 @@ body {
   padding: 8px 12px;
   border-radius: 10px;
   cursor: pointer;
+  color: #6f2e52; /* Tambahkan warna agar ikon terlihat */
 }
 
+/* Slider (Tengah) */
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-grow: 1; /* PENTING: Slider mengisi ruang kosong */
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#seekBar {
+  flex-grow: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: rgba(122, 107, 120, 0.2);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+#seekBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+}
+#seekBar::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Tombol Change Music (Kanan) */
+.file-btn {
+  background: linear-gradient(90deg, #ffd6e6, #ffdbe9);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 13px;
+  flex-shrink: 0; /* Jangan biarkan tombol ini mengecil */
+}
+.file-btn input {
+  display: none;
+}
+/* === AKHIR DARI BLOK PENGGANTI === */
+
+
+/* === GALERI UTAMA (MASONRY) === */
 .gallery-wrap {
   padding: 20px;
 }
-
 .masonry {
   width: 100%;
   max-width: 1400px;
@@ -87,10 +154,7 @@ body {
   padding-bottom: 60px;
   column-count: 4;
   column-gap: 18px;
-  /* Properti duplikat sudah saya hapus */
 }
-
-/* Set ukuran tiap foto (4 kolom di desktop) */
 .photo-card {
   break-inside: avoid;
   margin-bottom: 18px;
@@ -102,27 +166,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-
-/* Responsive column counts */
-@media (max-width: 1199px) {
-  .masonry {
-    column-count: 3;
-  }
-}
-
-@media (max-width: 899px) {
-  .masonry {
-    column-count: 2;
-  }
-}
-
-@media (max-width: 599px) {
-  .masonry {
-    column-count: 1;
-  }
-}
-
-/* Gaya gambar */
 .photo-img {
   display: block;
   width: 100%;
@@ -130,8 +173,6 @@ body {
   vertical-align: middle;
   transition: transform 0.5s ease, opacity 0.5s ease;
 }
-
-/* Meta info di bawah foto */
 .photo-card .meta {
   padding: 10px 12px;
   border-top: 1px solid rgba(118, 84, 99, 0.04);
@@ -141,142 +182,75 @@ body {
     rgba(255, 245, 249, 0.6)
   );
 }
-
 .caption {
   margin: 0;
   font-weight: 600;
   color: #5b3544;
   font-size: 14px;
 }
-
 .date {
   display: block;
   margin-top: 6px;
   color: var(--muted);
   font-size: 12px;
 }
-
-/* gentle reveal animation */
 .photo-card.reveal {
   opacity: 0;
   transform: translateY(18px) scale(0.995);
 }
-
 .photo-card.reveal.loaded {
   opacity: 1;
   transform: none;
   transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1);
 }
-
-/* hover zoom */
 .photo-card:hover .photo-img {
   transform: scale(1.03);
 }
 
-/* small screens tweaks */
+/* === MEDIA QUERIES (RESPONSIVE) === */
+@media (max-width: 1199px) {
+  .masonry {
+    column-count: 3;
+  }
+}
+@media (max-width: 899px) {
+  .masonry {
+    column-count: 2;
+  }
+}
+@media (max-width: 599px) {
+  /* Header di Mobile */
+  .site-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .music-controls {
+    margin-left: 0;
+    width: 100%;
+    max-width: 100%; 
+  }
+  
+  /* Galeri di Mobile */
+  .masonry {
+    column-count: 1;
+  }
+
+  /* Tata letak player di mobile */
+  .player-row-bottom {
+    flex-wrap: wrap; /* Izinkan item turun baris */
+    justify-content: center; /* Pusatkan semua */
+    gap: 8px;
+  }
+  .progress-container {
+    order: -1; /* Pindahkan slider ke atas tombol */
+    width: 100%; /* Slider ambil lebar penuh */
+  }
+}
 @media (max-width: 420px) {
   .site-header {
     padding: 12px;
   }
   .file-btn {
     font-size: 12px;
-  }
-}
-
-/* ===================================================
-   KODE BARU UNTUK PROGRESS BAR MULAI DARI SINI
- ===================================================
-*/
-
-.music-buttons {
-  display: flex; 
-  gap: 10px;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.progress-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-#seekBar {
-  flex-grow: 1; /* Biarkan slider mengambil sisa ruang */
-  -webkit-appearance: none;
-  appearance: none;
-  height: 6px;
-  background: rgba(122, 107, 120, 0.2);
-  border-radius: 3px;
-  outline: none;
-  cursor: pointer;
-}
-
-/* Style untuk 'thumb' atau gagang slider */
-#seekBar::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  background: var(--accent);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-#seekBar::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
-  background: var(--accent);
-  border-radius: 50%;
-  cursor: pointer;
-}
-
-/* Ubah layout header di mobile */
-@media (max-width: 599px) {
-  .site-header {
-    flex-direction: column; /* Susun judul dan kontroler secara vertikal */
-    gap: 10px;
-  }
-  .music-controls {
-    margin-left: 0; /* Hapus margin di mobile */
-    width: 100%; /* Ambil lebar penuh */
-  }
-
-  /* Ini dari @media (max-width: 599px) yang lama, 
-     kita gabungkan saja di sini */
-  .masonry {
-    column-count: 1;
-  } 
-}
-
-#currentSongTitle {
-  /* Atur agar pas di layout */
-  width: 100%;
-  order: -1; /* Pindahkan ke atas progress bar */
-  
-  /* Style Teks */
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--muted);
-  
-  /* Efek 'marquee' jika teks terlalu panjang */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: clip;
-  animation: marquee 15s linear infinite;
-
-}
-
-@keyframes marquee {
-  0% {transform : translateX(0%);}
-  100% {transform : translateX(-50%);}
-  }
-
-@media (max-width: 599px) {
-  #currentSongTitle {
-    text-align: center; /* Pusatkan teks di mobile */
   }
 }
