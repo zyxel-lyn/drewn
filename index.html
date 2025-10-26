@@ -10,12 +10,21 @@
 <header class="site-header">
 <h1>DREWN</h1>
 <div class="music-controls">
-<button id="skipPrev" title="Previous song">⏮</button>
-<button id="toggleMusic" aria-pressed="true" title="Toggle music">⏯</button>
-<button id="skipNext" title="Next song">⏭</button>
-<label class="file-btn">Change music
-<input id="musicFile" type="file" accept="audio/*" />
-</label>
+    
+    <div class="music-buttons"> <button id="skipPrev" title="Previous song">⏮</button>
+      <button id="toggleMusic" aria-pressed="true" title="Toggle music">⏯</button>
+      <button id="skipNext" title="Next song">⏭</button>
+      <label class="file-btn">Change music
+        <input id="musicFile" type="file" accept="audio/*" />
+      </label>
+    </div>
+
+    <div class="progress-container">
+      <span id="currentTime">0:00</span>
+      <input type="range" id="seekBar" value="0" step="1">
+      <span id="totalDuration">0:00</span>
+      <div id="currentSongTitle"></div>
+    </div>
 </div>
 </header>
 

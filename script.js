@@ -6,6 +6,7 @@ const audio = document.getElementById('bgAudio');
 const seekBar = document.getElementById('seekBar');
 const currentTimeEl = document.getElementById('currentTime');
 const totalDurationEl = document.getElementById('totalDuration');
+const currentSongTitleEl = document.getElementById('currentSongTitle');
 const toggleBtn = document.getElementById('toggleMusic');
 const musicFile = document.getElementById('musicFile');
 const skipPrevBtn = document.getElementById('skipPrev');
@@ -59,6 +60,7 @@ async function loadPlaylist() {
     playlist = await res.json();
     if (playlist.length > 0) {
       audio.src = playlist[currentSongIndex].src;
+      currentSongTitleEl.textContent = playlist[currentSongIndex].title;
     }
   } catch (err) {
     console.error('Failed to load music.json', err);
@@ -73,10 +75,11 @@ function formatTime(seconds) {
 
 // Play next song
 function playNext() {
-  currentSongIndex = (currentSongIndex + 1) % playlist.length;
-  audio.src = playlist[currentSongIndex].src;
-  
-  audio.play()
+  currentSongIndex = (currentSongIndex + 1) % playlist.length;
+  audio.src = playlist[currentSongIndex].src;
+  currentSongTitleEl.textContent = playlist[currentSongIndex].title;
+
+  audio.play()
     .then(() => {
       toggleBtn.setAttribute('aria-pressed', 'true');
       console.log(`Memutar lagu berikutnya: ${playlist[currentSongIndex].title}`); // Tambahkan log sukses
@@ -99,6 +102,7 @@ function playNext() {
 function playPrev() {
   currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
   audio.src = playlist[currentSongIndex].src;
+  currentSongTitleEl.textContent = playlist[currentSongIndex].title;
   
   audio.play()
     .then(() => {

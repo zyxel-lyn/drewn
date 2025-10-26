@@ -255,3 +255,31 @@ body {
     column-count: 1;
   } 
 }
+
+#currentSongTitle {
+  /* Atur agar pas di layout */
+  width: 100%;
+  order: -1; /* Pindahkan ke atas progress bar */
+  
+  /* Style Teks */
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--muted);
+  
+  /* Efek 'marquee' jika teks terlalu panjang */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  animation: marquee 15s linear infinite alternate;
+
+}
+@keyframes marquee {
+  0% {transform : translateX(0%);}
+  100% {transform : translateX(-50%);}
+  }
+
+@media (max-width: 599px) {
+  #currentSongTitle {
+    text-align: center; /* Pusatkan teks di mobile */
+  }
+}
