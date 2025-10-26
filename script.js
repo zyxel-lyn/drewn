@@ -3,10 +3,14 @@
 // Get DOM elements
 const masonry = document.querySelector('.masonry');
 const audio = document.getElementById('bgAudio');
+const seekBar = document.getElementById('seekBar');
+const currentTimeEl = document.getElementById('currentTime');
+const totalDurationEl = document.getElementById('totalDuration');
 const toggleBtn = document.getElementById('toggleMusic');
 const musicFile = document.getElementById('musicFile');
 const skipPrevBtn = document.getElementById('skipPrev');
 const skipNextBtn = document.getElementById('skipNext');
+
 
 // Music playlist variables
 let playlist = [];
