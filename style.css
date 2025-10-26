@@ -58,19 +58,19 @@
 
 /* Responsive column counts */
 @media (max-width: 1199px) {
-  .mansory {
+  .masonry {
     column-count: 3;
   }
 }
 
 @media (max-width: 899px) {
-  .mansory {
+  .masonry {
     column-count: 2;
   } 
 }
 
 @media (max-width: 599px) {
-  .mansory {
+  .masonry {
     column-count: 1;
   } 
 }
