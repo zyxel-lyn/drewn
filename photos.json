@@ -27,5 +27,23 @@
     "src": "assets/images/photos5.jpg",
     "caption": "Mount NCT Love",
     "date": "2025-10-05"
+  },
+
+  {
+    "src": "assets/images/photos6.jpg",
+    "caption": "Mount Pedaunan",
+    "date": "2025-10-13"
+  },
+
+  {
+    "src": "assets/images/photos7.jpg",
+    "caption": "Mount Pedaunan",
+    "date": "2025-10-11"
+  },
+
+  {
+    "src": "assets/images/photos8.jpg",
+    "caption": "Mount Mika",
+    "date": "2025-10-19"
   }
 ]
