@@ -61,6 +61,12 @@ async function loadPlaylist() {
   }
 }
 
+function formatTime(seconds) {
+  const minutes = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60);
+  return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+}
+
 // Play next song
 function playNext() {
   currentSongIndex = (currentSongIndex + 1) % playlist.length;
@@ -127,6 +133,8 @@ toggleBtn.addEventListener('click', async () => {
 });
 
 // Change music file manually
+
+
 musicFile.addEventListener('change', (e) => {
   const f = e.target.files && e.target.files[0];
   if (!f) return;
@@ -152,3 +160,28 @@ audio.addEventListener('ended', () => {
 // Skip buttons event listeners
 skipPrevBtn.addEventListener('click', playPrev);
 skipNextBtn.addEventListener('click', playNext);
+
+audio.addEventListener('timeupdate', () => {
+  if (audio.duration) {
+    seekBar.value = audio.currentTime;
+    currentTimeEl.textContent = formatTime(audio.currentTime);
+  }
+});
+
+// Event listener untuk update durasi total saat lagu dimuat
+audio.addEventListener('loadedmetadata', () => {
+  seekBar.max = audio.duration;
+  totalDurationEl.textContent = formatTime(audio.duration);
+});
+
+// Event listener untuk 'mencari' (seek) saat slider digeser
+seekBar.addEventListener('input', () => {
+  audio.currentTime = seekBar.value;
+});
+
+// Reset tampilan waktu saat lagu selesai (sebelum lagu baru main)
+audio.addEventListener('ended', () => {
+  currentTimeEl.textContent = "0:00";
+  seekBar.value = 0;
+  // playNext() sudah ada di kode Anda, jadi ini hanya tambahan
+});

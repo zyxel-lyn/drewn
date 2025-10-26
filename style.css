@@ -1,31 +1,85 @@
-    :root{
-    --bg: #ffb9d9;
-    --card-bg: #ffffff;
-    --accent: #ff77a9;
-    --muted: #7a6b78;
-    --radius: 12px;
-    --shadow: 0 8px 24px rgba(124,78,100,0.08);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-    margin:0 auto;
-    font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background:var(--bg);
-    color:#4a3a46;
-    }
-    .site-header{
-    position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:rgba(255,255,255,0.7);backdrop-filter: blur(6px);border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+:root {
+  --bg: #ffb9d9;
+  --card-bg: #ffffff;
+  --accent: #ff77a9;
+  --muted: #7a6b78;
+  --radius: 12px;
+  --shadow: 0 8px 24px rgba(124, 78, 100, 0.08);
 }
-    .site-header h1{margin:0;font-size:20px;letter-spacing:1px;color:#6f2e52}
-    .music-controls{display:flex;gap:10px;align-items:center}
-    .file-btn{background:linear-gradient(90deg,#ffd6e6,#ffdbe9);padding:8px 12px;border-radius:999px;cursor:pointer;font-size:13px}
-    .file-btn input{display:none}
-    #toggleMusic{background:transparent;border:1px solid rgba(111,46,82,0.08);padding:8px 12px;border-radius:10px;cursor:pointer}
-    #skipPrev,#skipNext{background:transparent;border:1px solid rgba(111,46,82,0.08);padding:8px 12px;border-radius:10px;cursor:pointer}
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0 auto;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial;
+  background: var(--bg);
+  color: #4a3a46;
+}
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+}
+.site-header h1 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: #6f2e52;
+}
 
+/* DI BAWAH INI ADALAH KODE .music-controls YANG SUDAH DIUBAH 
+  untuk mengakomodasi progress bar 
+*/
+.music-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap; /* BARU: Izinkan item turun ke baris baru */
+  justify-content: center; /* BARU */
+  flex-grow: 1; /* BARU: Biarkan controls mengambil sisa ruang */
+  margin-left: 20px; /* BARU: Beri jarak dari judul 'DREWN' */
+}
 
-    .gallery-wrap {
+/* Ini kode lama Anda, masih dipakai */
+.file-btn {
+  background: linear-gradient(90deg, #ffd6e6, #ffdbe9);
+  padding: 8px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.file-btn input {
+  display: none;
+}
+#toggleMusic {
+  background: transparent;
+  border: 1px solid rgba(111, 46, 82, 0.08);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#skipPrev,
+#skipNext {
+  background: transparent;
+  border: 1px solid rgba(111, 46, 82, 0.08);
+  padding: 8px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.gallery-wrap {
   padding: 20px;
 }
 
@@ -36,11 +90,7 @@
   padding-bottom: 60px;
   column-count: 4;
   column-gap: 18px;
-  width: 100%;
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-bottom: 60px;
-
+  /* Properti duplikat sudah saya hapus */
 }
 
 /* Set ukuran tiap foto (4 kolom di desktop) */
@@ -66,13 +116,13 @@
 @media (max-width: 899px) {
   .masonry {
     column-count: 2;
-  } 
+  }
 }
 
 @media (max-width: 599px) {
   .masonry {
     column-count: 1;
-  } 
+  }
 }
 
 /* Gaya gambar */
@@ -87,8 +137,12 @@
 /* Meta info di bawah foto */
 .photo-card .meta {
   padding: 10px 12px;
-  border-top: 1px solid rgba(118,84,99,0.04);
-  background: linear-gradient(180deg, rgba(255,255,255,0), rgba(255,245,249,0.6));
+  border-top: 1px solid rgba(118, 84, 99, 0.04);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0),
+    rgba(255, 245, 249, 0.6)
+  );
 }
 
 .caption {
@@ -108,13 +162,13 @@
 /* gentle reveal animation */
 .photo-card.reveal {
   opacity: 0;
-  transform: translateY(18px) scale(.995);
+  transform: translateY(18px) scale(0.995);
 }
 
 .photo-card.reveal.loaded {
   opacity: 1;
   transform: none;
-  transition: opacity .45s ease, transform .45s cubic-bezier(.2,.9,.25,1);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.2, 0.9, 0.25, 1);
 }
 
 /* hover zoom */
@@ -123,7 +177,81 @@
 }
 
 /* small screens tweaks */
-@media(max-width:420px){
-  .site-header { padding: 12px; }
-  .file-btn { font-size: 12px; }
+@media (max-width: 420px) {
+  .site-header {
+    padding: 12px;
+  }
+  .file-btn {
+    font-size: 12px;
+  }
+}
+
+/* ===================================================
+   KODE BARU UNTUK PROGRESS BAR MULAI DARI SINI
+ ===================================================
+*/
+
+.music-buttons {
+  display: flex; /* Jaga agar tombol tetap sebaris */
+  gap: 10px;
+  align-items: center;
+  width: 100%; /* Ambil lebar penuh di baris pertama */
+  justify-content: center; /* Posisikan di tengah (opsional) */
+}
+
+.progress-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+#seekBar {
+  flex-grow: 1; /* Biarkan slider mengambil sisa ruang */
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: rgba(122, 107, 120, 0.2);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* Style untuk 'thumb' atau gagang slider */
+#seekBar::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+#seekBar::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Ubah layout header di mobile */
+@media (max-width: 599px) {
+  .site-header {
+    flex-direction: column; /* Susun judul dan kontroler secara vertikal */
+    gap: 10px;
+  }
+  .music-controls {
+    margin-left: 0; /* Hapus margin di mobile */
+    width: 100%; /* Ambil lebar penuh */
+  }
+
+  /* Ini dari @media (max-width: 599px) yang lama, 
+     kita gabungkan saja di sini */
+  .masonry {
+    column-count: 1;
+  } 
 }
