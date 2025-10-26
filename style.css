@@ -30,20 +30,23 @@
 }
 
 .masonry {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 18px;
   width: 100%;
   max-width: 1400px;
   margin: 0 auto;
   padding-bottom: 60px;
+  column-count: 4;
+  column-gap: 18px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-bottom: 60px;
+
 }
 
 /* Set ukuran tiap foto (4 kolom di desktop) */
 .photo-card {
-  flex: 1 1 calc(25% - 18px);
+  break-inside: avoid;
+  margin-bottom: 18px;
   border-radius: var(--radius);
   background: var(--card-bg);
   box-shadow: var(--shadow);
@@ -55,15 +58,21 @@
 
 /* Responsive column counts */
 @media (max-width: 1199px) {
-  .photo-card { flex: 1 1 calc(33.33% - 18px); } /* 3 kolom */
+  .mansory {
+    column-count: 3;
+  }
 }
 
 @media (max-width: 899px) {
-  .photo-card { flex: 1 1 calc(50% - 18px); } /* 2 kolom */
+  .mansory {
+    column-count: 2;
+  } 
 }
 
 @media (max-width: 599px) {
-  .photo-card { flex: 1 1 100%; } /* 1 kolom */
+  .mansory {
+    column-count: 1;
+  } 
 }
 
 /* Gaya gambar */
